@@ -11,7 +11,7 @@
             descricao += "Neuroticismo: ";
             if (neuroticismo < 30) {
                 descricao += "Você tende a ser emocionalmente estável e resiliente.";
-            } else if (neuroticismo < 70) {
+            } else if (neuroticismo < 80) {
                 descricao += "Você possui um equilíbrio razoável entre estabilidade emocional e sensibilidade.";
             } else {
                 descricao += "Você pode ser emocionalmente instável e suscetível a estresse e ansiedade.";
@@ -21,7 +21,7 @@
             descricao += "Conscienciosidade: ";
             if (conscienciosidade < 30) {
                 descricao += "Você é menos preocupado com a organização e responsabilidade.";
-            } else if (conscienciosidade < 70) {
+            } else if (conscienciosidade < 80) {
                 descricao += "Você é moderadamente organizado e responsável em suas ações.";
             } else {
                 descricao += "Você é altamente organizado e leva suas responsabilidades a sério.";
@@ -31,7 +31,7 @@
             descricao += "Extroversão: ";
             if (extroversao < 30) {
                 descricao += "Você tende a ser introvertido e prefere a solidão ou interações em grupos pequenos.";
-            } else if (extroversao < 70) {
+            } else if (extroversao < 80) {
                 descricao += "Você é uma pessoa equilibrada, capaz de desfrutar de interações sociais, mas também de momentos de solidão.";
             } else {
                 descricao += "Você é extrovertido e gosta de estar rodeado de pessoas e atividades sociais.";
@@ -41,7 +41,7 @@
             descricao += "Agradabilidade: ";
             if (agradabilidade < 30) {
                 descricao += "Você pode ser mais cético e menos propenso a confiar nas pessoas.";
-            } else if (agradabilidade < 70) {
+            } else if (agradabilidade < 80) {
                 descricao += "Você é amigável e geralmente confia nos outros, mas também é seletivo em suas relações.";
             } else {
                 descricao += "Você é altamente agradável e tende a confiar nas pessoas e ser cooperativo.";
@@ -51,7 +51,7 @@
             descricao += "Abertura: ";
             if (abertura < 30) {
                 descricao += "Você é mais tradicional e prefere o familiar ao novo e inovador.";
-            } else if (abertura < 70) {
+            } else if (abertura < 80) {
                 descricao += "Você está disposto a experimentar coisas novas, mas também valoriza a tradição.";
             } else {
                 descricao += "Você é muito aberto a novas experiências e ideias, buscando constantemente o novo e o inovador.";
@@ -79,8 +79,13 @@
             }
             return (soma / maxPontos) * 100;
         }
-
         function iniciarTeste() {
+            let iniciar = confirm("Bem-vindo ao Teste de Personalidade dos Cinco Fatores! Deseja iniciar?");
+            if (!iniciar) {
+                alert("Obrigado! Até a próxima.");
+                return;
+            }
+
             const perguntas = [
                 "Me preocupo com as coisas",
                 "Me irrito facilmente",
