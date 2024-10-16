@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Personalidade</title>
+</head>
+<body>
     <script>
         function descreverPersonalidade(neuroticismo, conscienciosidade, extroversao, agradabilidade, abertura) {
             let descricao = "\nDescrição dos fatores de personalidade:\n";
 
             descricao += "Neuroticismo: ";
-            if (neuroticismo < 30) {
+            if (neuroticismo <= 30) {
                 descricao += "Você tende a ser emocionalmente estável e resiliente.";
-            } else if (neuroticismo < 80) {
+            } else if (neuroticismo > 30 && neuroticismo <= 70) {
                 descricao += "Você possui um equilíbrio razoável entre estabilidade emocional e sensibilidade.";
             } else {
                 descricao += "Você pode ser emocionalmente instável e suscetível a estresse e ansiedade.";
@@ -19,9 +21,9 @@
             descricao += "\n";
 
             descricao += "Conscienciosidade: ";
-            if (conscienciosidade < 30) {
+            if (conscienciosidade <= 30) {
                 descricao += "Você é menos preocupado com a organização e responsabilidade.";
-            } else if (conscienciosidade < 80) {
+            } else if (conscienciosidade > 30 && conscienciosidade <= 70) {
                 descricao += "Você é moderadamente organizado e responsável em suas ações.";
             } else {
                 descricao += "Você é altamente organizado e leva suas responsabilidades a sério.";
@@ -29,9 +31,9 @@
             descricao += "\n";
 
             descricao += "Extroversão: ";
-            if (extroversao < 30) {
+            if (extroversao <= 30) {
                 descricao += "Você tende a ser introvertido e prefere a solidão ou interações em grupos pequenos.";
-            } else if (extroversao < 80) {
+            } else if (extroversao > 30 && extroversao <= 70) {
                 descricao += "Você é uma pessoa equilibrada, capaz de desfrutar de interações sociais, mas também de momentos de solidão.";
             } else {
                 descricao += "Você é extrovertido e gosta de estar rodeado de pessoas e atividades sociais.";
@@ -39,9 +41,9 @@
             descricao += "\n";
 
             descricao += "Agradabilidade: ";
-            if (agradabilidade < 30) {
+            if (agradabilidade <= 30) {
                 descricao += "Você pode ser mais cético e menos propenso a confiar nas pessoas.";
-            } else if (agradabilidade < 80) {
+            } else if (agradabilidade > 30 && agradabilidade <= 70) {
                 descricao += "Você é amigável e geralmente confia nos outros, mas também é seletivo em suas relações.";
             } else {
                 descricao += "Você é altamente agradável e tende a confiar nas pessoas e ser cooperativo.";
@@ -49,9 +51,9 @@
             descricao += "\n";
 
             descricao += "Abertura: ";
-            if (abertura < 30) {
+            if (abertura <= 30) {
                 descricao += "Você é mais tradicional e prefere o familiar ao novo e inovador.";
-            } else if (abertura < 80) {
+            } else if (abertura > 30 && abertura <= 70) {
                 descricao += "Você está disposto a experimentar coisas novas, mas também valoriza a tradição.";
             } else {
                 descricao += "Você é muito aberto a novas experiências e ideias, buscando constantemente o novo e o inovador.";
@@ -62,13 +64,17 @@
         }
 
         function validarResposta(pergunta) {
-            let resposta;
-            do {
-                resposta = parseInt(prompt(pergunta + " (Digite um valor entre 0 e 10): "));
-                if (isNaN(resposta) || resposta < 0 || resposta > 10) {
-                    alert("Resposta inválida. Por favor, digite um valor entre 0 e 10.");
-                }
-            } while (isNaN(resposta) || resposta < 0 || resposta > 10);
+            let resposta = prompt(pergunta + " (Digite um valor entre 0 e 10): ");
+            if (resposta === null) {
+                return null; 
+            }
+
+            resposta = parseInt(resposta);
+            if (isNaN(resposta) || resposta < 0 || resposta > 10) {
+                alert("Resposta inválida. Por favor, digite um valor entre 0 e 10.");
+                return validarResposta(pergunta); 
+            }
+
             return resposta;
         }
 
@@ -79,6 +85,7 @@
             }
             return (soma / maxPontos) * 100;
         }
+
         function iniciarTeste() {
             let iniciar = confirm("Bem-vindo ao Teste de Personalidade dos Cinco Fatores! Deseja iniciar?");
             if (!iniciar) {
@@ -116,7 +123,12 @@
 
             let respostas = [];
             for (let i = 0; i < perguntas.length; i++) {
-                respostas.push(validarResposta(perguntas[i]));
+                let resposta = validarResposta(perguntas[i]);
+                if (resposta === null) {
+                    alert("Teste cancelado. Obrigado por participar!");
+                    return; 
+                }
+                respostas.push(resposta);
             }
 
             const neuroticismo = calcularFator(respostas, 0, 5, 50);
@@ -141,8 +153,10 @@
                 alert("Obrigado por participar do Teste de Personalidade! Até a próxima.");
             }
         }
+
+        window.onload = iniciarTeste;
     </script>
-</head>
-<body onload="iniciarTeste()">
 </body>
 </html>
+
+
